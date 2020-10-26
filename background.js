@@ -1,23 +1,24 @@
 let src = undefined;
 
-
-chrome.contextMenus.create({
+browser.menus.create({
 	id: "src",
 	title: "Get full-sized image or video",
 	type: 'normal',
 	contexts: ['page'],
-	onclick: function(info, tab) {
-		if (src != undefined) {
-			window.open(src);
-			src = undefined;
-		}
-	},
 	documentUrlPatterns: [
 		"https://*.instagram.com/*"
 	]
 });
 
+browser.menus.onClicked.addListener(function(info, tab) {
+	if (src != undefined) {
+		console.log(src);
+		browser.tabs.create({url: src});
+		src = undefined;
+	}
+});
 
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+
+browser.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 	src = message.src;
 })

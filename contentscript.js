@@ -9,24 +9,27 @@ function getClick(event) {
 	else if (t.getAttribute("class") == "_9AhH0") {
 		src = t.previousSibling.firstChild.src;
 	}
-	
-	if (src != undefined) {
-		chrome.runtime.sendMessage(message={"src": src});
-		src = undefined;
-	}
+	browser.runtime.sendMessage({"src": src});
+	src = undefined;
 }
 
 function getStories(e) {
+	
     if(e.button == 2 && location.href.split('/')[3] == "stories") {
         let elem = document.querySelector(".qbCDp");
-        
+        let l = undefined;
+		
         if(elem.childElementCount > 2 && elem.childNodes[2].tagName == "VIDEO"){
-            window.open(elem.childNodes[2].firstChild.src);
+			l = elem.childNodes[2].firstChild.src;
+            //window.open(l);
         }else{
-            window.open(elem.childNodes[0].src);
+			l = elem.childNodes[0].src;
+			//window.open(l);
+			console.log(l);
+			browser.tabs.create({url: l});
         }
     }
 }
 
-document.addEventListener('mouseup', getStories);
 document.addEventListener('mousedown', getClick);
+document.addEventListener('mouseup', getStories);

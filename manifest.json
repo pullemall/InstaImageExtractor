@@ -10,7 +10,8 @@
 	"content_scripts": [
 	   {
 		 "matches": [
-			"https://*.instagram.com/*"
+			"https://*.instagram.com/*",
+			"https://instagram.com/*"
 		 ],
 		 "js": ["contentscript.js"]
 	   }
@@ -18,7 +19,7 @@
 	"background": {
 		"scripts": ["background.js"]
 	},
-	"permissions": ["contextMenus"],
+	"permissions": ["contextMenus", "menus"],
 	"browser_action": {
 		"default_title": "InstaImageExtractor",
 		"default_icon": "icon_128.png",
